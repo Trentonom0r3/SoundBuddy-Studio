@@ -1,0 +1,35 @@
+.collapsible {
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .collapsible-header {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .collapsible-content {
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    animation: slideDown 0.3s ease-in-out;
+  }
+  
+  @keyframes slideDown {
+    from {
+      max-height: 0;
+      opacity: 0;
+    }
+    to {
+      max-height: 100%;
+      opacity: 1;
+    }
+  }
+  

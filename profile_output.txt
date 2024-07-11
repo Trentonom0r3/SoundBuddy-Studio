@@ -1,0 +1,33 @@
+         1965783 function calls (1901503 primitive calls) in 16.911 seconds
+
+   Ordered by: internal time
+   List reduced from 6935 to 25 due to restriction <25>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        4   14.054    3.513   14.054    3.513 {built-in method _winapi.WaitForSingleObject}
+      970    0.343    0.000    0.343    0.000 {built-in method io.open_code}
+6733/6697    0.239    0.000    0.302    0.000 C:\Users\tjerf\AppData\Local\Programs\Python\Python311\Lib\site-packages\llvmlite\binding\ffi.py:190(__call__)
+     5136    0.167    0.000    0.167    0.000 {built-in method nt.stat}
+      970    0.105    0.000    0.105    0.000 {built-in method marshal.loads}
+     2174    0.097    0.000    0.097    0.000 {built-in method nt._getfinalpathname}
+        2    0.083    0.041    0.083    0.041 {method 'reduce' of 'numpy.ufunc' objects}
+  129/128    0.068    0.001    0.078    0.001 {built-in method _imp.create_dynamic}
+     1051    0.045    0.000    0.045    0.000 {method 'read' of '_io.BufferedReader' objects}
+     6472    0.043    0.000    0.065    0.000 <frozen importlib._bootstrap_external>:96(_path_join)
+       55    0.041    0.001    0.240    0.004 C:\Users\tjerf\AppData\Local\Programs\Python\Python311\Lib\inspect.py:973(getmodule)
+   1290/4    0.037    0.000    2.507    0.627 {built-in method builtins.exec}
+        1    0.036    0.036    0.611    0.611 C:\Users\tjerf\AppData\Local\Programs\Python\Python311\Lib\site-packages\librosa\core\audio.py:227(__audioread_load)
+       24    0.036    0.001    0.036    0.001 {method 'readline' of '_io.BufferedReader' objects}
+3189/3177    0.034    0.000    0.092    0.000 {built-in method builtins.__build_class__}
+     3418    0.032    0.000    0.053    0.000 C:\Users\tjerf\AppData\Local\Programs\Python\Python311\Lib\site-packages\librosa\util\utils.py:1475(buf_to_float)
+      415    0.031    0.000    0.078    0.000 C:\Users\tjerf\AppData\Local\Programs\Python\Python311\Lib\site-packages\scipy\_lib\doccer.py:13(docformat)
+     3448    0.031    0.000    0.031    0.000 {method 'acquire' of '_thread.lock' objects}
+     1097    0.026    0.000    0.041    0.000 C:\Users\tjerf\AppData\Local\Programs\Python\Python311\Lib\site-packages\numba\core\typing\templates.py:879(make_overload_template)
+4942/4782    0.025    0.000    0.028    0.000 {built-in method __new__ of type object at 0x00007FFACE0F8F90}
+69988/67993    0.020    0.000    0.345    0.000 {built-in method builtins.hasattr}
+     3435    0.019    0.000    0.019    0.000 {method 'astype' of 'numpy.ndarray' objects}
+        4    0.018    0.005    0.018    0.005 {built-in method _winapi.CreateProcess}
+   142418    0.017    0.000    0.019    0.000 {built-in method builtins.isinstance}
+  129/117    0.016    0.000    0.052    0.000 {built-in method _imp.exec_dynamic}
+
+

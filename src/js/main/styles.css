@@ -1,0 +1,55 @@
+/* styles.css */
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  margin: 15px;
+  overflow: hidden;
+}
+
+.spectrum-Tabs {
+  border-bottom: 1px solid var(--spectrum-global-color-gray-300);
+}
+
+.spectrum-Tab {
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.spectrum-Tab.is-selected {
+  border-bottom: 2px solid var(--spectrum-global-color-blue-600);
+}
+
+.spectrum-TabPanels {
+  padding-top: 20px;
+  flex: 1;
+  overflow: auto;
+}
+
+.align-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-button {
+  flex-grow: 1;
+  min-width: 0;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.breadcrumb-current {
+  font-weight: bold;
+  text-decoration: underline;
+}

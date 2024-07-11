@@ -1,0 +1,50 @@
+/* styles.css */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.audio-waveform {
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden; /* Hide the scrollbar */
+}
+
+.waveform-container {
+  position: relative;
+  width: 100%;
+  height: 100%; /* Make sure it takes up the full height of the container */
+  overflow: auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.waveform {
+  width: 100%;
+  height: 100%; /* Make sure it takes up the full height of the container */
+  flex: auto;
+}
+
+.overlay-controls {
+  position: absolute;
+  top: 10px; /* Position at the top */
+  left: 10px; /* Position at the left */
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 3px;
+  z-index: 10; /* Ensure it is in front */
+}
+
+.waveform-timeline {
+  width: 100%;
+  height: 30px; /* Adjust this value based on your design */
+  background-color: #f3f3f3;
+}
