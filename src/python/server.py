@@ -1,8 +1,10 @@
 from flask import Flask, jsonify, request, Response
 import time
-import json
-import Isolator
-import BeatRec
+import AudioIsolation as AudioIsolation
+import BeatDetection as BeatDetection
+import initialize as initialize
+
+
 
 app = Flask(__name__)
 progress = 0
@@ -27,7 +29,7 @@ def isolate():
     #wait for user to press enter
     
     try:
-        isolator = Isolator.Isolator(data['file_path'])
+        isolator = AudioIsolation.Isolator(data['file_path'])
         print("Isolator created.")
         model_name = data.get('model_name', 'htdemucs')
         device = data.get('device', 'cuda')
@@ -54,7 +56,7 @@ def beat_detection():
         sr = data.get('sr', 22050)
         start_bpm = data.get('start_bpm', 120)
         tightness = data.get('tightness', 100.0)
-        beat_rec = BeatRec.BeatTracker(audio_files=[data['file_path']],
+        beat_rec = BeatDetection.BeatTracker(audio_files=[data['file_path']],
                                        hop_length=hop_length, 
                                        sr=sr, start_bpm=start_bpm,
                                        tightness=tightness)
@@ -67,4 +69,5 @@ def beat_detection():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
+    initialize.install_packages()
     app.run(debug=True)

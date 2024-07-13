@@ -68,37 +68,50 @@ const AudioWaveform = forwardRef(({
       waveSurfer.destroy();
     }
 
-    const ws = WaveSurfer.create({
-      container: waveformRef.current!,
-      waveColor: '#D9DCFF',
-      progressColor: '#4353FF',
-      cursorColor: '#4353FF',
-      barWidth: 2,
-      barRadius: 2,
-      normalize: true,
-      dragToSeek: true,
-      interact: true,
-      autoCenter: true,
-      autoScroll: true,
-      hideScrollbar: true,
-      fillParent: true,
-      backend: 'MediaElement',  // Set the backend to MediaElement
-      plugins: [
-        ZoomPlugin.create({
-          scale: 1.1,
-          maxZoom: 1000,
-        }),
-        MinimapPlugin.create({
-          height: 30,
-          waveColor: '#D9DCFF',
-          progressColor: '#4353FF',
-          cursorColor: '#4353FF',
-          insertPosition: 'afterend',
-        }),
-      
-        RegionsPlugin.create(),
-      ],
-    });
+// Create a canvas gradient
+const ctx = document.createElement('canvas').getContext('2d');
+const waveGradient = ctx?.createLinearGradient(0, 0, 0, 150);
+if (!waveGradient) return;
+waveGradient.addColorStop(0, '#FF5733'); // Orange
+waveGradient.addColorStop(0.3, '#FFC300'); // Yellow
+waveGradient.addColorStop(0.6, '#FF33FF'); // Pink
+
+const progressGradient = ctx?.createLinearGradient(0, 0, 0, 150);
+if (!progressGradient) return;
+progressGradient.addColorStop(0, '#00FFFF'); // Cyan
+progressGradient.addColorStop(0.5, '#0000FF'); // Blue
+progressGradient.addColorStop(1, '#ADD8E6'); // Light Blue
+
+const ws = WaveSurfer.create({
+  container: waveformRef.current!,
+  waveColor: waveGradient,
+  progressColor: progressGradient,
+  cursorColor: '#4cb1fb', // Cursor color to match the theme
+  barWidth: 2,
+  barRadius: 2,
+  normalize: true,
+  dragToSeek: true,
+  interact: true,
+  autoCenter: true,
+  autoScroll: true,
+  hideScrollbar: true,
+  fillParent: true,
+  backend: 'MediaElement',
+  plugins: [
+    ZoomPlugin.create({
+      scale: 1.1,
+      maxZoom: 1000,
+    }),
+    MinimapPlugin.create({
+      height: 30,
+      waveColor: waveGradient,
+      progressColor: progressGradient,
+      cursorColor: '#4cb1fb',
+      insertPosition: 'afterend',
+    }),
+    RegionsPlugin.create(),
+  ],
+});
 
     ws.on('ready', () => {
       setWaveSurfer(ws);

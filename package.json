@@ -18,8 +18,10 @@
     "@mui/icons-material": "^5.16.0",
     "@mui/material": "^5.16.0",
     "@spectrum-web-components/accordion": "^0.43.0",
+    "@types/node-fetch": "^2.6.11",
     "@wavesurfer/react": "^1.0.6",
     "axios": "^1.7.2",
+    "node-fetch": "^3.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "wavesurfer.js": "^7.8.1"

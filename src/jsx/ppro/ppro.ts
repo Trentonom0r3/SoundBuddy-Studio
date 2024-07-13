@@ -235,3 +235,34 @@ function DeleteAllMarkers() {
       return ("Error: " + e.toString());
     }
     }
+
+
+  export const importFile = (filePath: string) => {
+    try {
+      var project = app.project;
+
+      // If no file path is provided, prompt the user to select a file
+      if (!filePath) {
+          var fileToImport = File.openDialog("Select a file to import");
+          if (!fileToImport) {
+              alert("No file selected. Import cancelled.");
+              return;
+          }
+          filePath = (fileToImport as File).fsName;
+      }
+    
+      var importResult = project.importFiles([filePath]);
+      if (importResult) {
+          alert("File imported successfully!");
+      } else {
+          alert("Failed to import the file.");
+      }
+  } catch (e: any) {
+      alert(e.toString());
+      return ("Error: " + e.toString());
+  }
+}
+
+export const sendESAlert = (message: string) => {
+  alert(message);
+}

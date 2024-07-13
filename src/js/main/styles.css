@@ -53,3 +53,18 @@ html, body, #root {
   font-weight: bold;
   text-decoration: underline;
 }
+
+
+.banner-wrapper {
+  width: 100%;
+  max-width: 800px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.banner-wrapper img {
+  width: 100%;
+  object-fit: cover;
+  height: auto;
+}

@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import './styles.css';
 import {
   defaultTheme, Item, Key, Picker, Provider, ActionButton, ActionMenu, Flex, Slider,
-  Divider
+  Divider,
+  Heading
 } from '@adobe/react-spectrum';
 import { FlaskClient, createIsolationRequest, createBeatDetectionRequest } from './server';
 import { evalTS } from "../lib/utils/bolt";
@@ -11,6 +12,9 @@ import WaveSurfer from 'wavesurfer.js';
 import { fs, os, path } from "../lib/cep/node";
 import { join } from "path";
 import { clear } from "console";
+import audioBanner from './audiobanner.png';
+import beatBanner from './beatbanner.png';
+import mainBanner from './soundbuddybanner.png';
 
 interface IsolationPaths {
   vocals: string;
@@ -47,30 +51,6 @@ const Main = () => {
       waveSurfer.load(filePath);
     }
   }, [filePath, waveSurfer]);
-
-  const handleSelectionChange = (key: Key) => {
-    setIsolateOptions(key);
-    if (key === 'original' || (isolationPaths && isolationPaths[key as keyof IsolationPaths])) {
-      if (isolationPaths) {
-        const path = isolationPaths[key as keyof IsolationPaths];
-        setFilePath(path);
-      }
-    } else {
-      console.error('Isolation path not available.');
-    }
-  };
-
-  const handleSelectionChange2 = (setter: React.Dispatch<React.SetStateAction<Key>>) => (key: Key) => {
-    setter(key);
-    if (key === 'vocals' || key === 'drums' || key === 'bass' || key === 'other' || key === 'original') {
-      if (isolationPaths) {
-        const path = isolationPaths[key as keyof IsolationPaths];
-        setFilePath(path);
-      } else {
-        console.error('Isolation paths not set.');
-      }
-    }
-  };
 
   const saveBase64ToFile = (base64Data: string, filename: string) => {
     try {
@@ -175,6 +155,7 @@ const Main = () => {
           const blob: Blob = new Blob([fileBuffer], { type: 'audio/wav' });
           return URL.createObjectURL(blob);
         };
+        
 
         let isolationPaths2 = {
           vocals: createBlobURL(outputFiles.find(file => file.includes('vocals.wav')) ?? ''),
@@ -238,25 +219,18 @@ const Main = () => {
     }
   };
 
+  
   const resetSlider = (setter: React.Dispatch<number>, defaultValue: number) => {
     setter(defaultValue);
   };
 
   const renderSliderWithReset = (label: string, value: number, onChange: (value: number) => void, minValue: number, maxValue: number, step: number, defaultValue: number) => (
     <Flex alignItems="center" gap="size-100" width="100%">
-      <div onDoubleClick={() => resetSlider(onChange, defaultValue)} style={{ width: '85%' }}>
-        <Slider label={label} value={value} onChange={onChange} minValue={minValue} maxValue={maxValue} step={step} width="100%" />
+      <div onDoubleClick={() => resetSlider(onChange, defaultValue)} style={{ width: '100%' }}>
+        <Slider UNSAFE_className='custom-slider' label={label} value={value} onChange={onChange} minValue={minValue} maxValue={maxValue} step={step} width="100%" />
       </div>
     </Flex>
   );
-
-  const renderMenuItem = (key: Key, label: string) => {
-    return (
-      <Item key={key}>
-        {selectedPage === key && '✔️ '} {label}
-      </Item>
-    );
-  };
 
   const applyMarkers = async (markers: any) => {  
     const ans = await evalTS('applyMarkers', markers);
@@ -359,50 +333,88 @@ const Main = () => {
     return disabledKeys;
   };
 
+  const importActiveAudio = async () => {
+    try {
+      const rand_num = Math.floor(Math.random() * 1000);
+      let path = '';
+      switch (isolateOptions) {
+        case 'vocals':
+          path = await saveBlobToFile(isolationPaths?.vocals || '', `vocals_${rand_num}.wav`);
+          console.log('Saved file:', path);
+          break; // Added break statement
+        case 'drums':
+          path = await saveBlobToFile(isolationPaths?.drums || '', `drums_${rand_num}.wav`);
+          console.log('Saved file:', path);
+          break; // Added break statement
+        case 'bass':
+          path = await saveBlobToFile(isolationPaths?.bass || '', `bass_${rand_num}.wav`);
+          console.log('Saved file:', path);
+          break; // Added break statement
+        case 'other':
+          path = await saveBlobToFile(isolationPaths?.other || '', `other_${rand_num}.wav`);
+          console.log('Saved file:', path);
+          break; // Added break statement
+        case 'original':
+          await evalTS('sendESAlert', 'Original audio already exists in the project.');
+          break; // Added break statement
+        default:
+          console.error('Unknown isolation option selected.');
+      }
+      if (path !== '') {
+        await evalTS('importFile', path);
+      }
+    } catch (error: any) {
+      console.error('Error testing:', error);
+    }
+  };
+  
+
+  const handleSelectionChange = (key: Key) => {
+    setIsolateOptions(key);
+    if (key === 'original' || (isolationPaths && isolationPaths[key as keyof IsolationPaths])) {
+      if (isolationPaths) {
+        const path = isolationPaths[key as keyof IsolationPaths];
+        setFilePath(path);
+      }
+    } else {
+      console.error('Isolation path not available.');
+    }
+  };
+
   return (
     <Provider theme={defaultTheme}>
       <Flex direction="column" marginBottom="size-200" gap="size-100" margin="size-100">
         <Flex alignItems="center" direction="row" gap="size-100" margin="size-100" width="100%">
-          <ActionMenu onAction={handleMenuAction} width="size-100">
-            <Item key="waveform">
-              Waveform
-            </Item>
-            <Item key="isolation">
-              Isolation Settings
-            </Item>
-            <Item key="beatDetection">
-              Beat Detection
-            </Item>
-            <Item key="sync">
-              Sync to Player Time
-            </Item>
-            <Item key="clear">
-              Clear Markers
-            </Item>
-            <Item key="addToSequence">
-              Add Markers to Sequence
-            </Item>
-            <Item key="addToClip">
-              Add Markers to Clip
-              </Item>
+          <ActionMenu onAction={handleMenuAction} width="size-100" UNSAFE_className="custom-action-menu">
+            <Item key="waveform">Waveform</Item>
+            <Item key="isolation">Isolation Settings</Item>
+            <Item key="beatDetection">Beat Detection</Item>
+            <Item key="sync">Sync to Player Time</Item>
+            <Item key="clear">Clear Markers</Item>
+            <Item key="addToSequence">Add Markers to Sequence</Item>
+            <Item key="addToClip">Add Markers to Clip</Item>
           </ActionMenu>
-          <Picker aria-label="Isolation Options" selectedKey={isolateOptions} onSelectionChange={handleSelectionChange} width="25%" disabledKeys={getDisabledKeys()}>
+          <Picker aria-label="Isolation Options" selectedKey={isolateOptions} onSelectionChange={handleSelectionChange} width="25%" disabledKeys={getDisabledKeys()} UNSAFE_className="custom-picker">
             <Item key="original">Original</Item>
             <Item key="vocals">Vocals Only</Item>
             <Item key="drums">Drums Only</Item>
             <Item key="bass">Bass Only</Item>
             <Item key="other">Other Only</Item>
           </Picker>
-          <ActionButton onPress={isolate}>
+          <ActionButton onPress={isolate} UNSAFE_className="custom-action-button">
             Isolate
           </ActionButton>
-          <ActionButton onPress={detect_beats}>
+          <ActionButton onPress={detect_beats} UNSAFE_className="custom-action-button">
             Detect Beats
           </ActionButton>
+          <ActionButton onPress={importActiveAudio} UNSAFE_className="custom-action-button">Add To Project</ActionButton>
         </Flex>
         <div>
           {selectedPage === 'waveform' && (
             <div>
+              <Flex direction="column" width="100%" alignItems="center">
+                <img src={mainBanner} alt="Isolation Settings Banner" style={{ marginBottom: '20px', width: '100%', maxWidth: '800px' }} />
+              </Flex>
               <AudioWaveform
                 ref={waveformRef}
                 waveSurfer={waveSurfer}
@@ -418,12 +430,10 @@ const Main = () => {
             </div>
           )}
           {selectedPage === 'isolation' && (
-            <Flex direction="column"  width="100%">
-              <h3>Isolation Settings</h3>
-
-              <Divider size="M" />
-              <Flex direction="row" alignItems={'center'} justifyContent={'center'} gap="size-100" margin={"size-100"} width="95%">
-                <Picker label="Model" selectedKey={model} onSelectionChange={handleSelectionChange2(setModel)} width="100%">
+            <Flex direction="column" width="100%" alignItems="center">
+              <img src={audioBanner} alt="Isolation Settings Banner" style={{ marginBottom: '20px', width: '100%', maxWidth: '800px' }} />
+              <Flex direction="row" alignItems="center" justifyContent="space-between" gap="size-100" margin="size-100" width="95%">
+                <Picker label="Model" selectedKey={model} onSelectionChange={setModel} width="50%" UNSAFE_className="custom-picker">
                   <Item key="htdemucs">htdemucs</Item>
                   <Item key="htdemucs_ft">htdemucs_ft</Item>
                   <Item key="htdemucs_6s">htdemucs_6s</Item>
@@ -433,22 +443,21 @@ const Main = () => {
                   <Item key="mdx_q">mdx_q</Item>
                   <Item key="mdx_extra_q">mdx_extra_q</Item>
                 </Picker>
-                <Picker label="Device" selectedKey={device} onSelectionChange={handleSelectionChange2(setDevice)} width="100%">
+                <Picker label="Device" selectedKey={device} onSelectionChange={setDevice} width="50%" UNSAFE_className="custom-picker">
                   <Item key="cpu">cpu</Item>
                   <Item key="cuda">cuda</Item>
                 </Picker>
               </Flex>
-              <Flex direction="row" alignItems={'center'} justifyContent={'center'} gap="size-100" margin={"size-100"} width="100%">
+              <Flex direction="row" alignItems="center" justifyContent="space-between" gap="size-100" margin="size-100" width="95%">
                 {renderSliderWithReset('Shifts', shifts, setShifts, 0, 10, 1, 0)}
                 {renderSliderWithReset('Overlap', overlap, setOverlap, 0, 1, 0.01, 0.5)}
               </Flex>
             </Flex>
           )}
           {selectedPage === 'beatDetection' && (
-            <Flex direction="column" width="100%">
-              <h3>Beat Detection Settings</h3>
-              <Divider size="M" />
-              <Flex direction="row" alignItems={'center'} justifyContent={'center'} gap="size-100" margin={"size-100"} width="100%">
+            <Flex direction="column" width="100%" alignItems="center">
+              <img src={beatBanner} alt="Beat Detection Settings Banner" style={{ marginBottom: '20px', width: '100%', maxWidth: '800px' }} />
+              <Flex direction="row" alignItems="center" justifyContent="space-between" gap="size-100" margin="size-100" width="95%">
                 {renderSliderWithReset('Start BPM', startBPM, setStartBPM, 60, 180, 1, 120)}
                 {renderSliderWithReset('Hop Length', hopLength, setHopLength, 256, 1024, 64, 512)}
                 {renderSliderWithReset('Tightness', tightness, setTightness, 0, 100, 1, 100)}
