@@ -51,6 +51,12 @@ SoundBuddy Studio is a powerful CEP extension for Premiere Pro that offers advan
 1. Download the ZXP file from the most recent release.
 2. Install the ZXP file using [ZXPInstaller](https://aescripts.com/learn/zxp-installer/).
 
+### After Initial Install ###
+
+1. Navigate to the folder placed in the extensions directory; `C:\Program Files (x86)\Common Files\Adobe\CEP\extensions\SoundBuddy Studio`.
+2. Within the `python` folder, execute the `run.bat` file. This will set up dependencies. This may take a few moments. 
+  - Once the terminal has finished running, you may close the terminal, and use the extension as normal!
+
 ## 🚀 Usage 🚀
 
 ### 🎛️ Isolation Options Picker 🎛️
