@@ -18,31 +18,31 @@ SoundBuddy Studio is a powerful CEP extension for Premiere Pro that offers advan
 ### 🛠️ Export Options 🛠️
 - **Add your isolated clips to the project for further editing.**
 
-### 🚧 COMING SOON 🚧
+### 🚧 Coming Soon 🚧
 - **SFX Asset Management**: Organize and manage your sound effects assets efficiently.
 - **Audio Matching**: Find sounds that can sync to music playing for seamless match edits.
 
 ## 📋 Changelog 📋
 
-- **1.0.0a: Initial Release**
-  - **Audio Isolation** via Standard htdemucs, with optional advanced parameters.
-  - **Beat Detection**, with optional advanced parameters.
-      - Add Markers to Sequence, or Clip.
-      - Remove Markers from project.
-  - **Waveform Visualization**: Visualize waveforms, with zoom + scroll functionality. Syncs to PrPro Player time.
+### 1.0.0a: Initial Release
+- **Audio Isolation** via Standard htdemucs, with optional advanced parameters.
+- **Beat Detection** with optional advanced parameters.
+  - Add Markers to Sequence or Clip.
+  - Remove Markers from the project.
+- **Waveform Visualization**: Visualize waveforms with zoom and scroll functionality. Syncs to Premiere Pro player time.
 
 ## 🛠️ TODO 🛠️
 
 - [ ] Implement SFX Asset Management.
 - [ ] Develop Audio Matching feature.
 - [ ] Optimize performance for large audio files.
-- [ ] Ensure All Options work as expected when running Isolation and/or Beat Detection.
+- [ ] Ensure all options work as expected when running Isolation and/or Beat Detection.
 
 ## 📝 Installation 📝
 
 ### 💾 CEP Installation 💾
 
-1. Clone the Repo.
+1. Clone the repo.
 2. Place the `CEP` folder into the following directory: `C:\Program Files (x86)\Common Files\Adobe\CEP\extensions`.
 3. Open Adobe Premiere and access the extension.
 
@@ -51,11 +51,11 @@ SoundBuddy Studio is a powerful CEP extension for Premiere Pro that offers advan
 1. Download the ZXP file from the most recent release.
 2. Install the ZXP file using [ZXPInstaller](https://aescripts.com/learn/zxp-installer/).
 
-### After Initial Install ###
+### After Initial Install
 
-1. Navigate to the folder placed in the extensions directory; `C:\Program Files (x86)\Common Files\Adobe\CEP\extensions\SoundBuddy Studio`.
-2. Within the `python` folder, execute the `run.bat` file. This will set up dependencies. This may take a few moments. 
-  - Once the terminal has finished running, you may close the terminal, and use the extension as normal!
+1. Navigate to the folder placed in the extensions directory: `C:\Program Files (x86)\Common Files\Adobe\CEP\extensions\SoundBuddy Studio`.
+2. Within the `python` folder, execute the `run.bat` file. This will set up dependencies. This may take a few moments.
+  - Once the terminal has finished running, you may close the terminal and use the extension as normal.
 
 ## 🚀 Usage 🚀
 
