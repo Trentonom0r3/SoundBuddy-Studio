@@ -1,6 +1,6 @@
 # 🎧 SoundBuddy Studio 🎧
 
-SoundBuddy Studio is a powerful CEP extension for Adobe applications that offers advanced audio isolation, beat detection, SFX asset management, and audio matching features. Whether you're a music video editor or an AMV creator, SoundBuddy Studio provides the tools you need to enhance your audio editing workflow.
+SoundBuddy Studio is a powerful CEP extension for Premiere Pro that offers advanced audio isolation, beat detection, SFX asset management, and audio matching features. Whether you're a music video editor or an AMV creator, SoundBuddy Studio provides the tools you need to enhance your audio editing workflow.
 
 ## 🚀 Features 🚀
 
