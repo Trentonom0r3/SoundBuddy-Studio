@@ -13,7 +13,6 @@ SoundBuddy Studio is a powerful CEP extension for Adobe applications that offers
 - **Detect beats with customizable settings to sync your audio perfectly.**
 
 ### 📍 Marker Management 📍
-![Marker Management](./images/menuoptions.png)
 - **Add markers to the waveform, your sequence, and your clips easily.**
 
 ### 🛠️ Export Options 🛠️
@@ -22,20 +21,6 @@ SoundBuddy Studio is a powerful CEP extension for Adobe applications that offers
 ### 🚧 COMING SOON 🚧
 - **SFX Asset Management**: Organize and manage your sound effects assets efficiently.
 - **Audio Matching**: Find sounds that can sync to music playing for seamless match edits.
-
-## 📸 Screenshots 📸
-
-### 💻 Main Interface 💻
-![Main Interface](./images/CoreUI.png)
-
-### 📊 Overlay Interface 📊
-![Overlay Interface](./images/overlayUI.png)
-
-### 🎚️ Isolation Settings 🎚️
-![Isolation Settings](./images/isolationsettings.png)
-
-### 🕵️‍♂️ Beat Detection Settings 🕵️‍♂️
-![Beat Detection Settings](./images/beatsettings.png)
 
 ## 📋 Changelog 📋
 

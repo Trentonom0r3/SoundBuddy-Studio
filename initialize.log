@@ -1,0 +1,12 @@
+2024-07-14 07:36:41,570 INFO:demucs is already installed.
+2024-07-14 07:36:41,571 INFO:All required packages are already installed.
+2024-07-14 07:36:41,571 INFO:Starting server...
+2024-07-14 07:36:41,615 INFO:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2024-07-14 07:36:41,616 INFO:[33mPress CTRL+C to quit[0m
+2024-07-14 07:36:41,617 INFO: * Restarting with stat
+2024-07-14 07:36:41,982 INFO:demucs is already installed.
+2024-07-14 07:36:41,983 INFO:All required packages are already installed.
+2024-07-14 07:36:41,983 INFO:Starting server...
+2024-07-14 07:36:41,993 WARNING: * Debugger is active!
+2024-07-14 07:36:42,007 INFO: * Debugger PIN: 107-713-561

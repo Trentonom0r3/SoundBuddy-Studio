@@ -9,7 +9,7 @@ import { FlaskClient, createIsolationRequest, createBeatDetectionRequest } from 
 import { evalTS } from "../lib/utils/bolt";
 import AudioWaveform from "./waveform";
 import WaveSurfer from 'wavesurfer.js';
-import { fs, os, path } from "../lib/cep/node";
+import { fs, os, path, child_process  } from "../lib/cep/node";
 import { join } from "path";
 import { clear } from "console";
 import audioBanner from './audiobanner.png';
@@ -45,7 +45,43 @@ const Main = () => {
 
   const waveformRef = useRef<any>(null); // Ref for AudioWaveform component
 
+  function runBatchFile() {
+    // Ensure the correct path to cmd.exe
+    const cmdPath = process.env.comspec || 'cmd.exe';
+  
+    // Full path to the batch file
+    const batFilePath = path.join(__dirname, 'python', 'run.bat');
+  
+    const bat = child_process.spawn(cmdPath, ['/c', batFilePath], { cwd: path.dirname(batFilePath) });
+  
+    bat.stdout.on('data', (data) => {
+      console.log(data.toString());
+    });
+  
+    bat.stderr.on('data', (data) => {
+      console.error(data.toString());
+    });
+  
+    bat.on('exit', (code) => {
+      console.log(`Batch file exited with code ${code}`);
+    });
+  
+    bat.on('close', (code) => {
+      console.log(`Batch file closed with code ${code}`);
+    });
+  
+    bat.on('error', (err) => {
+      console.error(`Failed to start batch file: ${err.message}`);
+    });
+  
+    // Ensure proper cleanup
+    process.on('exit', () => {
+      bat.kill();
+    });
+  }
+  
   useEffect(() => {
+    runBatchFile();
     if (waveSurfer && filePath) {
       console.log('Loading path:', filePath);
       waveSurfer.load(filePath);
