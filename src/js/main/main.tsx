@@ -46,40 +46,22 @@ const Main = () => {
   const waveformRef = useRef<any>(null); // Ref for AudioWaveform component
 
   function runBatchFile() {
-    // Ensure the correct path to cmd.exe
-    const cmdPath = process.env.comspec || 'cmd.exe';
+    const isWindows = os.platform() === 'win32';
+    const scriptPath = isWindows ? path.join(__dirname, 'python', 'run.bat') : path.join(__dirname, 'python', 'run.sh');
   
-    // Full path to the batch file
-    const batFilePath = path.join(__dirname, 'python', 'run.bat');
+    const command = isWindows ? 'cmd.exe' : 'sh';
+    const args = isWindows ? ['/c', scriptPath] : [scriptPath];
   
-    const bat = child_process.spawn(cmdPath, ['/c', batFilePath], { cwd: path.dirname(batFilePath) });
-  
-    bat.stdout.on('data', (data) => {
-      console.log(data.toString());
+    const scriptProcess = child_process.spawn(command, args, {
+      cwd: path.dirname(scriptPath),
+      detached: true,
+      stdio: 'ignore'
     });
   
-    bat.stderr.on('data', (data) => {
-      console.error(data.toString());
-    });
-  
-    bat.on('exit', (code) => {
-      console.log(`Batch file exited with code ${code}`);
-    });
-  
-    bat.on('close', (code) => {
-      console.log(`Batch file closed with code ${code}`);
-    });
-  
-    bat.on('error', (err) => {
-      console.error(`Failed to start batch file: ${err.message}`);
-    });
-  
-    // Ensure proper cleanup
-    process.on('exit', () => {
-      bat.kill();
-    });
+    // Ensure the parent process does not wait for the child process
+    scriptProcess.unref();
   }
-  
+
   useEffect(() => {
     runBatchFile();
     if (waveSurfer && filePath) {
