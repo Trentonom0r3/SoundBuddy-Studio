@@ -25,6 +25,8 @@ SoundBuddy Studio is a powerful CEP extension for Premiere Pro that offers advan
 ## 📋 Changelog 📋
 
 ### 1.0.0b: Update for MacOS and Linux compatibility (Hopefully)
+- **Auto Install Dependencies** install dependencies in the backround upon first extension start. 
+  - This process may take a few minutes.
 
 ### 1.0.0a: Initial Release
 - **Audio Isolation** via Standard htdemucs, with optional advanced parameters.
